@@ -21,7 +21,7 @@ def convert_map(m: List[List[str]]) -> List[List[str]]:
             if val == '@':
                 row += ['@', '.']
             elif val == 'O':
-                row += ['[', ']']
+                row += ['[]']
             else:
                 row += [val] * 2
         converted.append(row)
