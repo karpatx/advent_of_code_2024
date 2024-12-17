@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"math"
-	"reflect"
+	"slices"
 	"strconv"
 	"strings"
 )
@@ -97,6 +97,7 @@ func main() {
 	fmt.Println(a, b, c, prg)
 	output := run(prg, a, b, c)
 	fmt.Println(output)
+	/* brute force
 	for {
 		go func(program []int, A, B, C int) {
 			output := run(program, A, B, C)
@@ -108,17 +109,14 @@ func main() {
 		if a%1000000 == 0 {
 			fmt.Println(a)
 		}
+	}*/
+	/* https://kyle.so/writing/aoc-2024 */
+	a = 0
+	for pos := len(prg) - 1; pos >= 0; pos-- {
+		a <<= 3
+		for !slices.Equal(run(prg, a, b, c), prg[pos:]) {
+			a++
+		}
 	}
-	//print(','.join([str(x) for x in output]))
-	/*
-	   # part_2
-	   a, b, c, prg = read_prg(LARGE_PRG)
-	   while True:
-	       output = run(prg, a, b, c)
-	       if len(prg) == len(output) and prg == output:
-	           break
-	       a += 1
-	       print(a, end='\r')
-	   print(a)
-	*/
+	fmt.Println(a)
 }

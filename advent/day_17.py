@@ -79,15 +79,12 @@ if __name__ == '__main__':
     a, b, c, prg = read_prg(LARGE_PRG)
     output = run(prg, a, b, c)
     print(','.join([str(x) for x in output]))
-    # part_2
-    
-    a, b, c, prg = read_prg(PART2_SMALL_PRG)
-    while True:
-        output = run(prg, a, b, c)
-        print(output)
-        if len(prg) == len(output) and prg == output:
-            break
-        a += 1
-        #print(a, end='\r')
-    print(a)
-    
+    # part_2 https://kyle.so/writing/aoc-2024
+    a = 0
+    for pos in range(len(prg) - 1, -1, -1):
+        a <<= 3
+        while not run(prg, a, b, c) == prg[pos:]:
+            print(run(prg, a, b, c), prg[pos:])
+            a += 1
+        print(pos, a)
+    print(run(prg, a, b, c), prg)
