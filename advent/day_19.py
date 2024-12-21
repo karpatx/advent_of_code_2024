@@ -23,21 +23,24 @@ def rec(current: int, original_design: str, longest: int):
             SOLUTIONS[original_design] = 1
 
 def rec2(design, cache={}):
+    print(design, cache)
     if design in cache:
         return cache[design]
 
-    if len(design)==0:
-        cache[design]=1
+    if len(design) == 0:
+        cache[design] = 1
         return 1
     count = 0
-    for o in PATTERNS:
+    for i, o in enumerate(PATTERNS):
         if design.startswith(o):
-            count+= rec2(design[len(o):], cache)
-    cache[design]=count
+            r = rec2(design[len(o):], cache)
+            count += r
+            print('*', i, o, r)
+    cache[design] = count
     return count
 
 if __name__ == '__main__':
-    lines = read_data_file('../data/day_19/sample_data.txt')
+    lines = read_data_file('../data/day_19/sample_data_small.txt')
     PATTERNS = {x.strip(): True for x in lines[0].split(',')}
     DESIGNS = [x.strip() for x in lines[2:]]
 
